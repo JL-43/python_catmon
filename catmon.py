@@ -75,36 +75,3 @@ class Catmon:
         print("Moves:")
         for move in self.moves:
             print(f"  - {move}")
-
-
-tackle = Move("tackle", 5, "normal", "attack")
-heal = Move("heal", 3, "normal", "heal")
-
-mugi_moves = [tackle, heal]
-buwie_moves = [tackle, heal]
-
-mugi = Catmon("mugi", "fire", 100, 100, mugi_moves)
-buwie = Catmon("buwie", "water", 100, 100, buwie_moves)
-
-print("----")
-mugi.display_stats()
-print("----")
-buwie.display_stats()
-
-print("----")
-print("mugi attacks buwie for 5")
-mugi.use_move(buwie, tackle)
-
-print("----")
-mugi.display_stats()
-print("----")
-buwie.display_stats()
-
-print("----")
-print("buwie heals for 3")
-buwie.use_move(mugi, heal)
-
-print("----")
-mugi.display_stats()
-print("----")
-buwie.display_stats()
