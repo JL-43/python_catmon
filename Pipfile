@@ -6,6 +6,10 @@ name = "pypi"
 [packages]
 
 [dev-packages]
+pre-commit = "*"
+mypy = "*"
+black = "*"
+isort = "*"
 
 [requires]
 python_version = "3.11"
