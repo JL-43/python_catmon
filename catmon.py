@@ -23,14 +23,17 @@ class Catmon:
         self.moves = moves  # This could be a dictionary or array
         self.level = level
 
-    def attack(self, other):
-        other.health -= 5
+    def attack(self, other, damage_taken):
+        other.take_damage(damage_taken)
 
-    def take_damage(self):
-        self.health -= 5
+    def take_damage(self, damage_taken):
+        self.health -= damage_taken
 
-    def heal(self):
-        self.health += 10
+    def heal(self, heal_amount):
+        if (self.health + heal_amount) > self.max_health:
+            self.health = self.max_health
+        else:
+            self.health += heal_amount
 
     def display_stats(self):
         for attribute, value in vars(self).items():
@@ -46,8 +49,17 @@ print("----")
 buwie.display_stats()
 
 print("----")
-print("mugi attacks buwie")
-mugi.attack(buwie)
+print("mugi attacks buwie for 5")
+mugi.attack(buwie, 5)
+
+print("----")
+mugi.display_stats()
+print("----")
+buwie.display_stats()
+
+print("----")
+print("buwie heals for 3")
+buwie.heal(3)
 
 print("----")
 mugi.display_stats()
