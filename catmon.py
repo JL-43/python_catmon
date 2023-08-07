@@ -1,3 +1,20 @@
+from typing import List
+
+
+class Move:
+    def __init__(self, name: str, power: int, type: str, category: str):
+        self.name = name
+        self.power = power
+        self.type = type
+        self.category = category
+
+    def __str__(self):
+        return f"Move: Name: {self.name}, Power: {self.power}, Type: {self.type}"
+
+    def __repr__(self):
+        return f"Move: Name: {self.name}, Power: {self.power}, Type: {self.type}"
+
+
 class Catmon:
 
     """
@@ -15,7 +32,15 @@ class Catmon:
     Heal: Restores the Catmon's health (optional).
     Display Stats: Prints or returns the Catmon's current stats."""
 
-    def __init__(self, name, type, health, max_health, moves, level=1):
+    def __init__(
+        self,
+        name: str,
+        type: str,
+        health: int,
+        max_health: int,
+        moves: List,
+        level: int = 1,
+    ):
         self.name = name
         self.type = type
         self.health = health
@@ -23,13 +48,21 @@ class Catmon:
         self.moves = moves  # This could be a dictionary or array
         self.level = level
 
-    def attack(self, other, damage_taken):
+    def use_move(self, other: "Catmon", selected_move: Move) -> None:
+        if selected_move.category == "attack":  # attack move
+            self.attack(other, selected_move.power)
+
+        if selected_move.category == "heal":  # heal move
+            heal_amount = selected_move.power
+            self.heal(heal_amount)
+
+    def attack(self, other: "Catmon", damage_taken: int):
         other.take_damage(damage_taken)
 
-    def take_damage(self, damage_taken):
+    def take_damage(self, damage_taken: int):
         self.health -= damage_taken
 
-    def heal(self, heal_amount):
+    def heal(self, heal_amount: int):
         if (self.health + heal_amount) > self.max_health:
             self.health = self.max_health
         else:
@@ -40,8 +73,14 @@ class Catmon:
             print(f"{attribute}: {value}")
 
 
-mugi = Catmon("mugi", "fire", 100, 100, ["tackle", "heal"])
-buwie = Catmon("buwie", "water", 100, 100, ["tackle", "heal"])
+tackle = Move("tackle", 5, "normal", "attack")
+heal = Move("heal", 3, "normal", "heal")
+
+mugi_moves = [tackle, heal]
+buwie_movies = [tackle, heal]
+
+mugi = Catmon("mugi", "fire", 100, 100, mugi_moves)
+buwie = Catmon("buwie", "water", 100, 100, buwie_movies)
 
 print("----")
 mugi.display_stats()
@@ -50,7 +89,7 @@ buwie.display_stats()
 
 print("----")
 print("mugi attacks buwie for 5")
-mugi.attack(buwie, 5)
+mugi.use_move(buwie, tackle)
 
 print("----")
 mugi.display_stats()
@@ -59,7 +98,7 @@ buwie.display_stats()
 
 print("----")
 print("buwie heals for 3")
-buwie.heal(3)
+buwie.use_move(mugi, heal)
 
 print("----")
 mugi.display_stats()
