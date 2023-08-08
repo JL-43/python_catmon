@@ -15,7 +15,6 @@ def test_attack_and_heal():
 
     # Test attack
     print("----")
-    print("mugi attacks buwie for 5")
     mugi.use_move(buwie, tackle)
     assert buwie.health == 95
 
@@ -26,7 +25,6 @@ def test_attack_and_heal():
 
     # Test heal
     print("----")
-    print("buwie heals for 3")
     buwie.use_move(mugi, heal)
     assert buwie.health == 98
 
