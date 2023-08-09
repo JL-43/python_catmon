@@ -71,6 +71,7 @@ class Catmon:
         move_category: str,
         move_type: str,
     ):
+        # mypy doesnt like that we are using the get method on this dict even though it is a valid method for this data type
         effectiveness: dict = TYPE_EFFECTIVENESS.get(move_type, {})  # type: ignore
 
         super_effective: list = effectiveness.get("super_effective", [])
