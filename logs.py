@@ -9,3 +9,13 @@ class Logs:
 
     def log_battle(self, message: str):
         self.logger.info(f"BATTLE LOG: {message}")
+
+
+# from config import LOG_LEVELS
+
+# class Logs:
+#     def __init__(self, log_type, log_level=LOG_LEVELS.get()):
+
+
+#     def log_battle(self, message: str):
+#         self.logger.info(f"BATTLE LOG: {message}")

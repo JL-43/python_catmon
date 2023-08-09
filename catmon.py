@@ -1,4 +1,4 @@
-from typing import List
+from typing import Dict, List
 
 from config import TYPE_EFFECTIVENESS
 from logs import Logs
@@ -51,25 +51,39 @@ class Catmon:
         self.level = level
 
     def use_move(self, other: "Catmon", selected_move: Move) -> None:
-        if selected_move.category == "attack":  # attack move
+        if selected_move.category == "heal":  # heal move
+            heal_amount: int = selected_move.power
+            self.heal(heal_amount)
+        else:  # attack (physical or special) move
             self.attack(
                 other,
+                selected_move.name,
                 selected_move.power,
                 selected_move.category,
                 selected_move.move_type,
             )
-        elif selected_move.category == "heal":  # heal move
-            heal_amount = selected_move.power
-            self.heal(heal_amount)
 
     def attack(
-        self, other: "Catmon", move_power: int, move_category: str, move_type: str
+        self,
+        other: "Catmon",
+        move_name: str,
+        move_power: float,
+        move_category: str,
+        move_type: str,
     ):
-        # effectiveness = TYPE_EFFECTIVENESS.get(move_type, {})
-        # super_effective = effectiveness.get("super_effective", [])
-        # not_effective = effectiveness.get("not_effective", [])
+        effectiveness: dict = TYPE_EFFECTIVENESS.get(move_type, {})  # type: ignore
+
+        super_effective: list = effectiveness.get("super_effective", [])
+        not_effective: list = effectiveness.get("not_effective", [])
+
+        log_string_1: str = f"{self.name} attacks {other.name} with {move_name} for"
+
+        logs.log_battle(str(effectiveness))
+        logs.log_battle(f"Super effective against: {super_effective}")
+        logs.log_battle(f"Not very effective against: {not_effective}")
 
         # Determine base damage based on move category
+        base_damage: float = 0
         if move_category == "physical":
             base_damage = move_power + self.atk - other.def_
         elif move_category == "special":
@@ -78,18 +92,25 @@ class Catmon:
             base_damage = move_power  # Default, in case of a non-standard category
 
         # Modify damage based on type effectiveness
-        # if other.type in super_effective:
-        #     damage_taken = base_damage * 2  # or some other multiplier
-        # elif other.type in not_effective:
-        #     damage_taken = base_damage * 0.5  # or some other multiplier
-        # else:
-        #     damage_taken = base_damage
+        log_string_3: str = ""
+        damage_taken: int = 0
+        if other.type in super_effective:
+            damage_taken = int(base_damage * 2)  # or some other multiplier
+            log_string_3 = ". It's super effective!"
+        elif other.type in not_effective:
+            damage_taken = int(base_damage * 0.5)  # or some other multiplier
+            log_string_3 = ". It's not very effective."
+        else:
+            damage_taken = int(base_damage)
 
         # Ensure damage_taken is non-negative
-        # damage_taken = max(damage_taken, 0)
+        damage_taken = max(damage_taken, 0)
+        log_string_2: str = f" {damage_taken} damage"
+
+        log_string: str = f"{log_string_1}{log_string_2}{log_string_3}"
 
         # other.take_damage(damage_taken)
-        # logs.log_battle(f"{self.name} attacks {other.name} for {damage_taken} damage")
+        logs.log_battle(log_string)
 
     def take_damage(self, damage_taken: int):
         self.health -= damage_taken

@@ -13,3 +13,5 @@ TYPE_EFFECTIVENESS = {
     },
     "Normal": {},
 }
+
+# LOG_LEVELS = {"Informational", "Battle"}
