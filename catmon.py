@@ -1,39 +1,10 @@
-import logging
 from typing import List
 
+from config import TYPE_EFFECTIVENESS
 from logs import Logs
+from move import Move
 
 logs = Logs()
-
-TYPE_EFFECTIVENESS = {
-    "Fire": {
-        "super_effective": ["Grass"],
-        "not_effective": ["Water", "Fire"],
-    },
-    "Water": {
-        "super_effective": ["Fire"],
-        "not_effective": ["Water", "Grass"],
-    },
-    "Grass": {
-        "super_effective": ["Water"],
-        "not_effective": ["Fire", "Grass"],
-    },
-    "Normal": {},
-}
-
-
-class Move:
-    def __init__(self, name: str, power: int, category: str, move_type: str):
-        self.name = name
-        self.power = power
-        self.category = category
-        self.move_type = move_type
-
-    def __str__(self):
-        return f"Move: Name: {self.name}, Power: {self.power}, Category: {self.category}, Type: {self.move_type}"
-
-    def __repr__(self):
-        return f"Move: Name: {self.name}, Power: {self.power}, Category: {self.category}, Type: {self.move_type}"
 
 
 class Catmon:
