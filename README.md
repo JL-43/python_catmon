@@ -2,9 +2,6 @@
 
 ### To do:
 
-1. catmon stats as multipliers to moves
-
-- implement stats (atk, def, sp atk, sp def, etc) and have these stats make certain moves stronger
-
-2. catmon move types implementation (weaknesses)
-3. catmon selection and have first battle controlled by CPU
+1. catmon selection and have first battle controlled by CPU
+2. Gameover logic / CPU defeated logic
+3. Speed stat usage
