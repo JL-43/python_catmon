@@ -1,4 +1,4 @@
-from typing import Dict, List
+from typing import Dict, List, Tuple
 
 from config import TYPE_EFFECTIVENESS
 from logs import Logs
@@ -37,7 +37,7 @@ class Catmon:
         sp_def: int,
         speed: int,
         level: int = 1,
-    ):
+    ) -> None:
         self.name = name
         self.type = type
         self.health = health
@@ -70,7 +70,7 @@ class Catmon:
         move_power: float,
         move_category: str,
         move_type: str,
-    ):
+    ) -> None:
         base_damage = self.calculate_base_damage(other, move_power, move_category)
         type_multiplier, type_log = self.calculate_type_effectiveness(other, move_type)
         final_damage = int(base_damage * type_multiplier)
@@ -82,7 +82,7 @@ class Catmon:
 
     def calculate_base_damage(
         self, other: "Catmon", move_power: float, move_category: str
-    ):
+    ) -> float:
         if move_category == "physical":
             return move_power + self.atk - other.def_
         elif move_category == "special":
@@ -90,7 +90,9 @@ class Catmon:
         else:
             return move_power
 
-    def calculate_type_effectiveness(self, other: "Catmon", move_type: str):
+    def calculate_type_effectiveness(
+        self, other: "Catmon", move_type: str
+    ) -> Tuple[float, str]:
         effectiveness = TYPE_EFFECTIVENESS.get(move_type, {})
         # mypy doesnt think these have "get" methods
         super_effective = effectiveness.get("super_effective", [])  # type: ignore
@@ -104,15 +106,15 @@ class Catmon:
 
     def calculate_damage(
         self, other: "Catmon", move_power: float, move_category: str, move_type: str
-    ):
+    ) -> Tuple[float, str]:
         base_damage = self.calculate_base_damage(other, move_power, move_category)
         type_multiplier, type_log = self.calculate_type_effectiveness(other, move_type)
         return base_damage * type_multiplier, type_log
 
-    def take_damage(self, damage_taken: int):
+    def take_damage(self, damage_taken: int) -> None:
         self.health -= damage_taken
 
-    def heal(self, heal_amount: int):
+    def heal(self, heal_amount: int) -> None:
         if (self.health + heal_amount) > self.max_health:
             # get the difference between current health to max health (health_to_full)
             # set the current health to maximum health
@@ -125,11 +127,11 @@ class Catmon:
             self.health += heal_amount
             logs.log_battle(f"{self.name} heals for {heal_amount}")
 
-    def display_stats(self):
+    def display_stats(self) -> None:
         for attribute, value in vars(self).items():
             print(f"{attribute}: {value}")
 
-    def display_moves(self):
+    def display_moves(self) -> None:
         print("Moves:")
         for move in self.moves:
             print(f"  - {move}")
