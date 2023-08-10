@@ -71,47 +71,43 @@ class Catmon:
         move_category: str,
         move_type: str,
     ):
-        # mypy doesnt like that we are using the get method on this dict even though it is a valid method for this data type
-        effectiveness: dict = TYPE_EFFECTIVENESS.get(move_type, {})  # type: ignore
+        base_damage = self.calculate_base_damage(other, move_power, move_category)
+        type_multiplier, type_log = self.calculate_type_effectiveness(other, move_type)
+        final_damage = int(base_damage * type_multiplier)
+        final_damage = max(final_damage, 0)
 
-        super_effective: list = effectiveness.get("super_effective", [])
-        not_effective: list = effectiveness.get("not_effective", [])
-
-        log_string_1: str = f"{self.name} attacks {other.name} with {move_name} for"
-
-        logs.log_battle(str(effectiveness))
-        logs.log_battle(f"Super effective against: {super_effective}")
-        logs.log_battle(f"Not very effective against: {not_effective}")
-
-        # Determine base damage based on move category
-        base_damage: float = 0
-        if move_category == "physical":
-            base_damage = move_power + self.atk - other.def_
-        elif move_category == "special":
-            base_damage = move_power + self.sp_atk - other.sp_def
-        else:
-            base_damage = move_power  # Default, in case of a non-standard category
-
-        # Modify damage based on type effectiveness
-        log_string_3: str = ""
-        damage_taken: int = 0
-        if other.type in super_effective:
-            damage_taken = int(base_damage * 2)  # or some other multiplier
-            log_string_3 = ". It's super effective!"
-        elif other.type in not_effective:
-            damage_taken = int(base_damage * 0.5)  # or some other multiplier
-            log_string_3 = ". It's not very effective."
-        else:
-            damage_taken = int(base_damage)
-
-        # Ensure damage_taken is non-negative
-        damage_taken = max(damage_taken, 0)
-        log_string_2: str = f" {damage_taken} damage"
-
-        log_string: str = f"{log_string_1}{log_string_2}{log_string_3}"
-
-        # other.take_damage(damage_taken)
+        log_string = f"{self.name} attacks {other.name} with {move_name} for {final_damage} damage{type_log}"
         logs.log_battle(log_string)
+        other.take_damage(final_damage)
+
+    def calculate_base_damage(
+        self, other: "Catmon", move_power: float, move_category: str
+    ):
+        if move_category == "physical":
+            return move_power + self.atk - other.def_
+        elif move_category == "special":
+            return move_power + self.sp_atk - other.sp_def
+        else:
+            return move_power
+
+    def calculate_type_effectiveness(self, other: "Catmon", move_type: str):
+        effectiveness = TYPE_EFFECTIVENESS.get(move_type, {})
+        # mypy doesnt think these have "get" methods
+        super_effective = effectiveness.get("super_effective", [])  # type: ignore
+        not_effective = effectiveness.get("not_effective", [])  # type: ignore
+        if other.type in super_effective:
+            return 2, ". It's super effective!"
+        elif other.type in not_effective:
+            return 0.5, ". It's not very effective."
+        else:
+            return 1, ""
+
+    def calculate_damage(
+        self, other: "Catmon", move_power: float, move_category: str, move_type: str
+    ):
+        base_damage = self.calculate_base_damage(other, move_power, move_category)
+        type_multiplier, type_log = self.calculate_type_effectiveness(other, move_type)
+        return base_damage * type_multiplier, type_log
 
     def take_damage(self, damage_taken: int):
         self.health -= damage_taken
