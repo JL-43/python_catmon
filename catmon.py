@@ -27,6 +27,7 @@ class Catmon:
     def __init__(
         self,
         name: str,
+        nickname: str,
         type: str,
         health: int,
         max_health: int,
@@ -39,6 +40,7 @@ class Catmon:
         level: int = 1,
     ) -> None:
         self.name = name
+        self.nickname = nickname
         self.type = type
         self.health = health
         self.max_health = max_health
@@ -76,7 +78,7 @@ class Catmon:
         final_damage = int(base_damage * type_multiplier)
         final_damage = max(final_damage, 0)
 
-        log_string = f"{self.name} attacks {other.name} with {move_name} for {final_damage} damage{type_log}"
+        log_string = f"{self.nickname} attacks {other.nickname} with {move_name} for {final_damage} damage{type_log}"
         logs.log_battle(log_string)
         other.take_damage(final_damage)
 

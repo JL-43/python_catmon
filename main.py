@@ -28,5 +28,19 @@ while not catmon_is_picked:
 
 # mypy does not like unpacking
 player_catmon: Catmon = Catmon(**CATMON_TEMPLATES[player_catmon_choice])  # type: ignore
-player_catmon.display_stats()
-player_catmon.display_moves()
+
+nickname_is_given: bool = False
+
+while not nickname_is_given:
+    if_give_nickname_input: str = (
+        input(f"\nWould you like to give your {player_catmon.name} a nickname? Y/N")
+    ).lower()
+
+    if if_give_nickname_input == "y":
+        input("Enter nickname: ")
+        nickname_is_given = True
+    elif if_give_nickname_input == "n":
+        nickname_is_given = True
+    else:
+        print("That's not a valid input!")
+        nickname_is_given = False

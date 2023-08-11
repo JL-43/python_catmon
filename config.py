@@ -17,6 +17,7 @@ TYPE_EFFECTIVENESS = {
 CATMON_TEMPLATES = {
     "mugi": {
         "name": "mugi",
+        "nickname": "mugi",
         "type": "Fire",
         "health": 100,
         "max_health": 100,
@@ -30,6 +31,7 @@ CATMON_TEMPLATES = {
     },
     "buwie": {
         "name": "buwie",
+        "nickname": "buwie",
         "type": "Water",
         "health": 100,
         "max_health": 100,
@@ -43,6 +45,7 @@ CATMON_TEMPLATES = {
     },
     "raffy": {
         "name": "raffy",
+        "nickname": "raffy",
         "type": "Grass",
         "health": 100,
         "max_health": 100,
