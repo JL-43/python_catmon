@@ -37,7 +37,8 @@ while not nickname_is_given:
     ).lower()
 
     if if_give_nickname_input == "y":
-        input("Enter nickname: ")
+        player_catmon_nickname_input = input("Enter nickname: ")
+        player_catmon.nickname = player_catmon_nickname_input
         nickname_is_given = True
     elif if_give_nickname_input == "n":
         nickname_is_given = True
