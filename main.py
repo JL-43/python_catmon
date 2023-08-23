@@ -7,6 +7,7 @@ catmon_is_picked: bool = False
 player_catmon_choice: str = ""
 enemy_catmon_choice: str = ""
 
+# catmon picking conditionals
 while not catmon_is_picked:
     print("Choose a catmon:")
     player_catmon_choice = (input("mugi, buwie, raffy\n")).lower()
@@ -57,4 +58,24 @@ enemy_catmon: Catmon = Catmon(**CATMON_TEMPLATES[enemy_catmon_choice])  # type: 
 
 print(f"Your Catmon: {player_catmon.nickname} vs Enemy Catmon: {enemy_catmon.nickname}")
 
-print("Select your first move!")
+
+# pass the catmons to a catmon_battle()
+
+# instantiate the catmons specifically for the battle as to not affect actual stats
+player_catmon_battle: Catmon = player_catmon
+enemy_catmon_battle: Catmon = enemy_catmon
+
+player_catmon_battle.display_stats()
+enemy_catmon_battle.display_stats()
+
+print("Select a move!")
+player_catmon_battle.display_moves()
+
+if player_catmon_battle.speed > enemy_catmon_battle.speed:
+    print("Player went first")
+elif player_catmon_battle.speed < enemy_catmon_battle.speed:
+    print("Enemy went first")
+elif player_catmon_battle.speed == enemy_catmon_battle.speed:
+    print("Same speed")
+else:
+    print("Not Valid Input!")
