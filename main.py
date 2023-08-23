@@ -56,3 +56,5 @@ print("Let's have our first battle!")
 enemy_catmon: Catmon = Catmon(**CATMON_TEMPLATES[enemy_catmon_choice])  # type: ignore
 
 print(f"Your Catmon: {player_catmon.nickname} vs Enemy Catmon: {enemy_catmon.nickname}")
+
+print("Select your first move!")
