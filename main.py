@@ -69,13 +69,27 @@ player_catmon_battle.display_stats()
 enemy_catmon_battle.display_stats()
 
 print("Select a move!")
-player_catmon_battle.display_moves()
+player_catmon_battle.display_moves()  # not working
 
-if player_catmon_battle.speed > enemy_catmon_battle.speed:
-    print("Player went first")
-elif player_catmon_battle.speed < enemy_catmon_battle.speed:
-    print("Enemy went first")
-elif player_catmon_battle.speed == enemy_catmon_battle.speed:
-    print("Same speed")
-else:
-    print("Not Valid Input!")
+
+def speed_check():
+    if player_catmon_battle.speed > enemy_catmon_battle.speed:
+        print("Player went first")
+    elif player_catmon_battle.speed < enemy_catmon_battle.speed:
+        print("Enemy went first")
+    elif player_catmon_battle.speed == enemy_catmon_battle.speed:
+        print("Same speed")
+    else:
+        print("Not Valid Input!")
+
+
+# def select_move():
+
+
+# loop below until battle is over / health less than 0
+# select_move()
+# speed_check()
+# use_move()  # for first catmon
+# health_check()
+# use_move()  # for second catmon
+# health_check()

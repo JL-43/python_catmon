@@ -135,5 +135,6 @@ class Catmon:
 
     def display_moves(self) -> None:
         print("Moves:")
+        print(self.moves)
         for move in self.moves:
             print(f"  - {move}")
