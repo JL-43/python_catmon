@@ -10,6 +10,9 @@ Of course, they would still sting a little bit and so cats would often use these
 Or decide who has the claim to the canned tuna on the street.
 Eventually though, people who owned these cats decided that we can have them harmlessly play with each other for competition
 This is what's known as a catmon battle
+
+--- add part of the monologue where you pick your catmon
+
 The world of cats is vast
 And your journey finally about to start"
 
@@ -27,7 +30,7 @@ Walking right takes you towards the city, going through here though you will fin
 
 They say that there is a cat stuck up in the tree and doesn't want to come down
 
-He's so scared he's shooting little fire pellets at people--it doesn't really hurt, of course, but the little kitty is scaring people off of the sidewalk
+He's so scared he's shooting little fire/water/seed pellets at people--it doesn't really hurt, of course, but the little kitty is scaring people off of the sidewalk
 
 This forces us to walk towards our neighborhood
 
@@ -45,12 +48,27 @@ We get introduced to our dad (wholesome)
 
 "Yep."
 
-"What do the cats have to do with it?"
+"What do the cats have to do with it?", your dad chuckles
 
 "More of a culture fit kind of thing"
 
 "Oh--times really are kind of strange now, huh, son.
+Well, I'm sure you'll get the hang of it soon too", he gives you a big grin
 
-Well, I'm sure you'll get the hang of it soon too"
+"Thanks dad", you smile back
 
-"Thanks dad"
+"I heard there was a sale in the supermarket near the city today for meat. Why don't you go get us some sukiyaki meat and I'll make some of your favorite tonight?"
+
+"Sure, dad"
+
+Received Sukiyaki money
+
+"Oh, and here son, I have some left over tuna sandwich. You probably haven't eaten yet, have you?
+
+Received Left-over Tuna Sandwich
+
+"Thanks" you grin
+
+You make your way to the supermarket that is towards the city, right past the police barricade actually
+
+--create section that introduces you to the catmon you selected in the screen earlier (same cat that was in the tree) and you give it your tuna sandwich
